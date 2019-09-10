@@ -97,12 +97,12 @@ class NewsWindow:
 		
 		self.vbox.pack_start(self.sw2, True)
 
-		self.sw = gtk.ScrolledWindow()
+		#~ self.sw = gtk.ScrolledWindow()
 		#~ self.sw.set_shadow_type(gtk.ShadowType.ETCHED_IN)
-		self.sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)		
-		self.vview = webkit.WebView()
-		self.sw.add(self.vview)
-		self.vbox.pack_start(self.sw, True)
+		#~ self.sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)		
+		#~ self.vview = webkit.WebView()
+		#~ self.sw.add(self.vview)
+		#~ self.vbox.pack_start(self.sw, True)
 		
 		# add the TreeView to the scrolled window
 		#self.sw.add(self.treeView)
@@ -161,18 +161,18 @@ class NewsWindow:
         # column = a visible column in a Gtk.TreeView widget
         # param: title, cell_renderer, zero or more attribute=column pairs
         # text = 0 -> attribute values for the cell renderer from column 0 in the treemodel
-		column = gtk.TreeViewColumn("Date", rendererText1, text=0)
+		column1 = gtk.TreeViewColumn("Date", rendererText1, text=0)
         # the logical column ID of the model to sort
-		column.set_sort_column_id(0)
+		column1.set_sort_column_id(0)
         # append the column
-		treeView.append_column(column)
+		treeView.append_column(column1)
  
 		rendererText2 = gtk.CellRendererText()
-		column = gtk.TreeViewColumn("Title", rendererText2, text=1)
-		column.set_sort_column_id(1)    
-		treeView.append_column(column)
+		column2 = gtk.TreeViewColumn("Title", rendererText2, text=1)
+		column2.set_sort_column_id(1)    
+		treeView.append_column(column2)
  
-		treeView.set_headers_clickable(False)
+		treeView.set_headers_clickable(True)
 
 
 	def destroy(self, widget, data=None):
@@ -187,7 +187,7 @@ class NewsWindow:
 		feed = feedparser.parse(uri)
 		for i in feed['items']:
 			#~ '%a %b %d %H:%M:%S %Y'
-			td= time.strftime('%a %d %b %Y, %H:%M', i['published_parsed'])
+			td= time.strftime('%Y-%m-%d %a, %H:%M', i['published_parsed'])
 			#~ print time.strptime(i['published_parsed']), time.strptime(i['published'])
 			s.store.append([td, i['title'], ''])
 			#~ s.store.append([i['title_detail']['value'], '', ''])
